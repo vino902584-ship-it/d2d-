@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="images.png">
+<title>DAY TO DAY MARKET — Online Supermarket </title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="show('home')">
+    <div class="icon-logo"><img src="images.png" alt="" width="40px"></div>
+    DAY TO DAY MARKET 
+  </div>
+  <div class="nav-center">
+    <a onclick="show('home')" id="nav-home" class="active">Home</a>
+    <a onclick="show('shop')" id="nav-shop">Shop</a>
+    <a onclick="show('cart')" id="nav-cart">Cart</a>
+    <a onclick="show('checkout')" id="nav-checkout">Checkout</a>
+    <a onclick="show('account')" id="nav-account">My Account</a>
+    <a onclick="show('login')" id="nav-login">Login</a>
+  </div>
+  <div class="nav-right">
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" placeholder="Search products…" oninput="liveSearch(this.value)">
+    </div>
+    <button class="nav-icon-btn" onclick="show('account')" title="Account">👤</button>
+    <button class="nav-icon-btn" onclick="show('cart')" title="Cart">
+      🛒
+      <span class="badge" id="cart-badge">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HOME ===== -->
+<div class="page active" id="page-home">
+  <div class="hero-banner">
+    <div class="hero-text">
+      <div class="hero-badge">🌿 Fresh Every Morning</div>
+      <h1>Your Daily<br><span>Groceries,</span><br>Delivered Fast</h1>
+      <p>Farm-fresh produce, pantry staples, and everything in between — delivered to your door in under 30 minutes.</p>
+      <div class="hero-btns">
+        <button class="btn-white" onclick="show('shop')">Shop Now →</button>
+        <button class="btn-outline-w" onclick="show('login')">Sign Up Free</button>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="hero-stat"><div class="num">10K+</div><div class="lbl">Happy Customers</div></div>
+      <div class="hero-stat"><div class="num">30min</div><div class="lbl">Avg. Delivery</div></div>
+      <div class="hero-stat"><div class="num">500+</div><div class="lbl">Products</div></div>
+    </div>
+  </div>
+
+  <div class="offers-bar">
+    <div class="offer-scroll" id="offer-scroll">
+      <div class="offer-item">🔥 50% OFF Fresh Vegetables Today Only</div>
+      <div class="offer-dot"></div>
+      <div class="offer-item">🥛 Buy 2 Get 1 Free on Dairy Products</div>
+      <div class="offer-dot"></div>
+      <div class="offer-item">🚚 Free Delivery on Orders Above ₹499</div>
+      <div class="offer-dot"></div>
+      <div class="offer-item">🍎 New Arrivals: Organic Fruit Basket</div>
+      <div class="offer-dot"></div>
+      <div class="offer-item">🔥 50% OFF Fresh Vegetables Today Only</div>
+      <div class="offer-dot"></div>
+      <div class="offer-item">🥛 Buy 2 Get 1 Free on Dairy Products</div>
+      <div class="offer-dot"></div>
+      <div class="offer-item">🚚 Free Delivery on Orders Above ₹499</div>
+      <div class="offer-dot"></div>
+      <div class="offer-item">🍎 New Arrivals: Organic Fruit Basket</div>
+    </div>
+  </div>
+
+  <div class="categories-section">
+    <div class="sec-header">
+      <div class="sec-title">Shop by Category</div>
+      <a class="see-all" onclick="show('shop')">See all →</a>
+    </div>
+    <div class="cats-grid">
+      <div class="cat-card" onclick="filterCat('Vegetables')"><span class="cat-emoji">🥦</span><div class="cat-name">Vegetables</div><div class="cat-count">48 items</div></div>
+      <div class="cat-card" onclick="filterCat('Fruits')"><span class="cat-emoji">🍎</span><div class="cat-name">Fruits</div><div class="cat-count">36 items</div></div>
+      <div class="cat-card" onclick="filterCat('Dairy')"><span class="cat-emoji">🥛</span><div class="cat-name">Dairy</div><div class="cat-count">29 items</div></div>
+      <div class="cat-card" onclick="filterCat('Bakery')"><span class="cat-emoji">🍞</span><div class="cat-name">Bakery</div><div class="cat-count">22 items</div></div>
+      <div class="cat-card" onclick="filterCat('Meat')"><span class="cat-emoji">🥩</span><div class="cat-name">Meat & Fish</div><div class="cat-count">31 items</div></div>
+      <div class="cat-card" onclick="filterCat('Snacks')"><span class="cat-emoji">🍪</span><div class="cat-name">Snacks</div><div class="cat-count">54 items</div></div>
+      <div class="cat-card" onclick="filterCat('Beverages')"><span class="cat-emoji">🧃</span><div class="cat-name">Beverages</div><div class="cat-count">40 items</div></div>
+      <div class="cat-card" onclick="filterCat('Personal')"><span class="cat-emoji">🧴</span><div class="cat-name">Personal Care</div><div class="cat-count">67 items</div></div>
+    </div>
+  </div>
+
+  <div class="products-section">
+    <div class="sec-header">
+      <div class="sec-title">🔥 Today's Best Deals</div>
+      <a class="see-all" onclick="show('shop')">View all →</a>
+    </div>
+    <div class="products-grid" id="home-products"></div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="color:#fff;">🛒 DAY TO DAY MARKET</div>
+        <p>Your trusted online supermarket. Fresh produce, pantry essentials & household needs delivered fast to your doorstep.</p>
+      </div>
+      <div class="footer-col"><h4>Quick Links</h4><a onclick="show('home')">Home</a><a onclick="show('shop')">Shop</a><a onclick="show('account')">My Orders</a><a onclick="show('login')">Login</a></div>
+      <div class="footer-col"><h4>Categories</h4><a>Vegetables</a><a>Fruits</a><a>Dairy</a><a>Snacks</a></div>
+      <div class="footer-col"><h4>Help</h4><a>Track Order</a><a>Returns Policy</a><a>Contact Us</a><a>FAQs</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 DAY TO DAY MARKET. All rights reserved.</span><span>🔒 Safe & Secure Payments</span></div>
+  </footer>
+</div>
+
+<!-- ===== SHOP ===== -->
+<div class="page" id="page-shop">
+  <div class="shop-layout">
+    <div class="sidebar">
+      <h3>🔎 Filters</h3>
+      <div class="filter-group">
+        <h4>Categories</h4>
+        <div class="filter-item"><input type="checkbox" checked onchange="applyFilters()"> Vegetables</div>
+        <div class="filter-item"><input type="checkbox" checked onchange="applyFilters()"> Fruits</div>
+        <div class="filter-item"><input type="checkbox" checked onchange="applyFilters()"> Dairy</div>
+        <div class="filter-item"><input type="checkbox" checked onchange="applyFilters()"> Bakery</div>
+        <div class="filter-item"><input type="checkbox" checked onchange="applyFilters()"> Meat & Fish</div>
+        <div class="filter-item"><input type="checkbox" checked onchange="applyFilters()"> Snacks</div>
+        <div class="filter-item"><input type="checkbox" checked onchange="applyFilters()"> Beverages</div>
+      </div>
+      <div class="filter-group">
+        <h4>Price Range</h4>
+        <input type="range" class="price-range" min="0" max="500" value="500" oninput="updatePrice(this.value)">
+        <div class="price-labels"><span>₹0</span><span id="price-val">₹500</span></div>
+      </div>
+      <div class="filter-group">
+        <h4>Ratings</h4>
+        <div class="filter-item"><input type="checkbox"> ⭐⭐⭐⭐⭐ 5 stars</div>
+        <div class="filter-item"><input type="checkbox"> ⭐⭐⭐⭐ 4+ stars</div>
+        <div class="filter-item"><input type="checkbox"> ⭐⭐⭐ 3+ stars</div>
+      </div>
+    </div>
+    <div>
+      <div class="sort-bar">
+        <h2>All Products</h2>
+        <select class="sort-select" onchange="sortProducts(this.value)">
+          <option value="default">Sort: Featured</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+      <div class="products-grid" id="shop-products"></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="justify-content:center;">© 2025 DAY TO DAY MARKET. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ===== CART ===== -->
+<div class="page" id="page-cart">
+  <div class="cart-layout">
+    <div>
+      <div class="cart-title">Your Cart 🛒</div>
+      <div class="cart-count" id="cart-count-txt">0 items</div>
+      <div id="cart-items-container"></div>
+    </div>
+    <div class="cart-summary">
+      <div class="cs-title">Order Summary</div>
+      <div class="cs-row"><span>Subtotal</span><span id="cs-subtotal">₹0.00</span></div>
+      <div class="cs-row"><span>Delivery fee</span><span id="cs-delivery">₹40.00</span></div>
+      <div class="cs-row"><span>Discount</span><span style="color:var(--green)" id="cs-disc">-₹0.00</span></div>
+      <div class="cs-row total"><span>Total</span><span id="cs-total">₹0.00</span></div>
+      <div class="promo-box">
+        <input type="text" placeholder="Promo code" id="promo-input">
+        <button class="btn-green" style="width:auto;padding:11px 18px;" onclick="applyPromo()">Apply</button>
+      </div>
+      <button class="btn-green" onclick="show('checkout')">Proceed to Checkout →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHECKOUT ===== -->
+<div class="page" id="page-checkout">
+  <div class="checkout-layout">
+    <div>
+      <div class="form-section" style="margin-bottom:20px;">
+        <h3><div class="form-icon">📦</div> Delivery Details</h3>
+        <div class="delivery-options">
+          <div class="del-opt active" onclick="selDel(this)"><span class="di">⚡</span><strong>Express</strong><span>30 min — ₹60</span></div>
+          <div class="del-opt" onclick="selDel(this)"><span class="di">🚲</span><strong>Standard</strong><span>2 hrs — ₹40</span></div>
+          <div class="del-opt" onclick="selDel(this)"><span class="di">📅</span><strong>Scheduled</strong><span>Pick time — ₹20</span></div>
+        </div>
+        <div class="form-grid">
+          <div><label>First Name</label><input placeholder="Ravi"></div>
+          <div><label>Last Name</label><input placeholder="Kumar"></div>
+          <div class="form-full"><label>Address</label><input placeholder="123 Gandhi Street, Near Metro Station"></div>
+          <div><label>City</label><input placeholder="Chennai"></div>
+          <div><label>PIN Code</label><input placeholder="600001"></div>
+          <div class="form-full"><label>Phone</label><input placeholder="+91 98765 43210"></div>
+        </div>
+      </div>
+      <div class="form-section">
+        <h3><div class="form-icon">💳</div> Payment Method</h3>
+        <div class="payment-methods">
+          <div class="pay-method active" onclick="selPay(this)"><span class="pm-icon">💳</span>Card</div>
+          <div class="pay-method" onclick="selPay(this)"><span class="pm-icon">📱</span>UPI</div>
+          <div class="pay-method" onclick="selPay(this)"><span class="pm-icon">🏦</span>Net Banking</div>
+          <div class="pay-method" onclick="selPay(this)"><span class="pm-icon">💵</span>COD</div>
+        </div>
+        <div id="card-fields">
+          <div style="margin-bottom:16px;"><label>Card Number</label><input placeholder="1234 5678 9012 3456" maxlength="19" oninput="fmtCard(this)"></div>
+          <div class="form-grid">
+            <div><label>Expiry</label><input placeholder="MM / YY"></div>
+            <div><label>CVV</label><input placeholder="•••" maxlength="3" type="password"></div>
+          </div>
+          <div><label>Name on Card</label><input placeholder="RAVI KUMAR"></div>
+        </div>
+      </div>
+    </div>
+    <div class="order-summary-side">
+      <div class="oss-title">Order Summary</div>
+      <div id="oss-items"></div>
+      <div class="cs-row"><span>Subtotal</span><span id="oss-sub">₹0</span></div>
+      <div class="cs-row"><span>Delivery</span><span>₹60</span></div>
+      <div class="cs-row total"><span>Total</span><span id="oss-total">₹60</span></div>
+      <button class="btn-green" style="margin-top:20px;" onclick="placeOrder()">🎉 Place Order</button>
+      <div style="text-align:center;margin-top:14px;font-size:0.8rem;color:var(--muted);">🔒 Secured by 256-bit SSL</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ACCOUNT ===== -->
+<div class="page" id="page-account">
+  <div class="account-layout">
+    <div class="account-sidebar">
+      <div class="user-profile">
+        <div class="user-avatar">👤</div>
+        <div class="user-name">Ravi Kumar</div>
+        <div class="user-email">ravi.kumar@gmail.com</div>
+      </div>
+      <div class="acc-menu">
+        <a class="active" onclick="showAccTab('orders',this)"><span class="mi">📦</span> My Orders</a>
+        <a onclick="showAccTab('wishlist',this)"><span class="mi">❤️</span> Wishlist</a>
+        <a onclick="showAccTab('profile',this)"><span class="mi">👤</span> Profile</a>
+        <a onclick="showAccTab('address',this)"><span class="mi">📍</span> Addresses</a>
+        <a onclick="show('login')"><span class="mi">🚪</span> Logout</a>
+      </div>
+    </div>
+    <div class="account-main">
+      <!-- ORDERS TAB -->
+      <div id="acc-orders">
+        <div class="sec-title" style="margin-bottom:22px;">My Orders</div>
+        <div class="order-item">
+          <div class="order-header">
+            <div><div class="order-id">#FM-20241201</div><div class="order-date">1 Dec 2024</div></div>
+            <span class="order-status status-delivered">✓ Delivered</span>
+          </div>
+          <div class="order-items-row">
+            <div class="oi-chip">🥦 Broccoli ×2</div>
+            <div class="oi-chip">🥛 Full Cream Milk ×1</div>
+            <div class="oi-chip">🍞 Bread ×1</div>
+          </div>
+          <div class="order-total">Total: ₹287.00</div>
+        </div>
+        <div class="order-item">
+          <div class="order-header">
+            <div><div class="order-id">#FM-20241128</div><div class="order-date">28 Nov 2024</div></div>
+            <span class="order-status status-transit">🚚 In Transit</span>
+          </div>
+          <div class="order-items-row">
+            <div class="oi-chip">🍎 Apples ×6</div>
+            <div class="oi-chip">🧃 Orange Juice ×2</div>
+          </div>
+          <div class="order-total">Total: ₹349.00</div>
+        </div>
+        <div class="order-item">
+          <div class="order-header">
+            <div><div class="order-id">#FM-20241125</div><div class="order-date">25 Nov 2024</div></div>
+            <span class="order-status status-processing">⏳ Processing</span>
+          </div>
+          <div class="order-items-row">
+            <div class="oi-chip">🥩 Chicken ×1kg</div>
+            <div class="oi-chip">🍪 Biscuits ×3</div>
+            <div class="oi-chip">🥚 Eggs ×12</div>
+          </div>
+          <div class="order-total">Total: ₹562.00</div>
+        </div>
+      </div>
+      <!-- WISHLIST TAB -->
+      <div id="acc-wishlist" style="display:none;">
+        <div class="sec-title" style="margin-bottom:22px;">My Wishlist ❤️</div>
+        <div class="wishlist-grid" id="wishlist-grid"></div>
+      </div>
+      <!-- PROFILE TAB -->
+      <div id="acc-profile" style="display:none;">
+        <div class="sec-title" style="margin-bottom:22px;">Edit Profile</div>
+        <div class="form-grid">
+          <div><label>First Name</label><input value="Ravi"></div>
+          <div><label>Last Name</label><input value="Kumar"></div>
+          <div class="form-full"><label>Email</label><input value="ravi.kumar@gmail.com"></div>
+          <div class="form-full"><label>Phone</label><input value="+91 98765 43210"></div>
+          <div class="form-full"><label>Date of Birth</label><input type="date" value="1992-05-14"></div>
+        </div>
+        <button class="btn-green" style="margin-top:10px;width:auto;padding:12px 32px;" onclick="toast('Profile saved! ✓')">Save Changes</button>
+      </div>
+      <!-- ADDRESS TAB -->
+      <div id="acc-address" style="display:none;">
+        <div class="sec-title" style="margin-bottom:22px;">Saved Addresses</div>
+        <div style="border:1.5px solid var(--green);border-radius:14px;padding:20px;margin-bottom:14px;position:relative;">
+          <span style="position:absolute;top:10px;right:12px;background:var(--green-light);color:var(--green);font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:50px;">Default</span>
+          <div style="font-weight:600;margin-bottom:6px;">🏠 Home</div>
+          <div style="color:var(--muted);font-size:0.88rem;line-height:1.6;">123 Gandhi Street, Near Metro Station,<br>Chennai – 600001, Tamil Nadu</div>
+        </div>
+        <div style="border:1px solid var(--border);border-radius:14px;padding:20px;">
+          <div style="font-weight:600;margin-bottom:6px;">🏢 Office</div>
+          <div style="color:var(--muted);font-size:0.88rem;line-height:1.6;">45 Tech Park, 3rd Floor,<br>Sholinganallur, Chennai – 600119</div>
+        </div>
+        <button class="btn-green" style="margin-top:16px;width:auto;padding:12px 28px;" onclick="toast('New address feature coming soon!')">+ Add New Address</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LOGIN ===== -->
+<div class="page" id="page-login">
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-logo">🛒 DAY TO DAY MARKET</div>
+      <div class="auth-sub">Fresh groceries, at your fingertips.</div>
+      <div class="tabs-auth">
+        <button class="tab-a active" onclick="switchAuth('sign-in',this,document.querySelectorAll('.tab-a')[1])">Sign In</button>
+        <button class="tab-a" onclick="switchAuth('sign-up',this,document.querySelectorAll('.tab-a')[0])">Register</button>
+      </div>
+      <div class="tab-content-auth active" id="sign-in">
+        <div style="margin-bottom:16px;"><label>Email or Phone</label><input placeholder="you@example.com"></div>
+        <div style="margin-bottom:20px;"><label>Password</label><input type="password" placeholder="••••••••"></div>
+        <button class="btn-green" onclick="toast('Welcome back to DAY TO DAY MARKET! 🛒')">Sign In</button>
+        <div style="text-align:center;margin-top:14px;"><a href="#" style="color:var(--green);font-size:0.85rem;">Forgot password?</a></div>
+      </div>
+      <div class="tab-content-auth" id="sign-up">
+        <div class="form-grid" style="margin-bottom:0;">
+          <div style="margin-bottom:16px;"><label>First Name</label><input placeholder="Ravi"></div>
+          <div style="margin-bottom:16px;"><label>Last Name</label><input placeholder="Kumar"></div>
+        </div>
+        <div style="margin-bottom:16px;"><label>Email</label><input placeholder="ravi@example.com"></div>
+        <div style="margin-bottom:16px;"><label>Phone</label><input placeholder="+91 98765 43210"></div>
+        <div style="margin-bottom:20px;"><label>Password</label><input type="password" placeholder="Min. 8 characters"></div>
+        <button class="btn-green" onclick="toast('Account created! Welcome to DAY TO DAY MARKET 🎉')">Create Account</button>
+      </div>
+      <div class="divider">or continue with</div>
+      <div class="social-row">
+        <button class="social-btn" onclick="toast('Google login coming soon!')">🔵 Google</button>
+        <button class="social-btn" onclick="toast('Phone OTP coming soon!')">📱 OTP</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" style="display:none;"></div>
+
+<script>
+// ===== DATA =====
+const products = [
+  {id:1,name:'Fresh Broccoli',cat:'Vegetables',price:49,old:79,emoji:'🥦',weight:'500g',disc:38},
+  {id:2,name:'Alphonso Mangoes',cat:'Fruits',price:199,old:299,emoji:'🥭',weight:'1kg',disc:33},
+  {id:3,name:'Full Cream Milk',cat:'Dairy',price:68,old:0,emoji:'🥛',weight:'1 litre'},
+  {id:4,name:'Brown Bread',cat:'Bakery',price:45,old:55,emoji:'🍞',weight:'400g',disc:18},
+  {id:5,name:'Farm Eggs',cat:'Dairy',price:89,old:0,emoji:'🥚',weight:'12 pcs'},
+  {id:6,name:'Chicken Breast',cat:'Meat',price:249,old:299,emoji:'🍗',weight:'500g',disc:16},
+  {id:7,name:'Orange Juice',cat:'Beverages',price:129,old:159,emoji:'🧃',weight:'1 litre',disc:19},
+  {id:8,name:'Greek Yogurt',cat:'Dairy',price:99,old:0,emoji:'🫙',weight:'400g'},
+  {id:9,name:'Strawberries',cat:'Fruits',price:149,old:189,emoji:'🍓',weight:'250g',disc:21},
+  {id:10,name:'Butter Cookies',cat:'Snacks',price:79,old:0,emoji:'🍪',weight:'200g'},
+  {id:11,name:'Spinach Bunch',cat:'Vegetables',price:29,old:0,emoji:'🌿',weight:'250g'},
+  {id:12,name:'Cheddar Cheese',cat:'Dairy',price:189,old:229,emoji:'🧀',weight:'200g',disc:17},
+  {id:13,name:'Basmati Rice',cat:'Snacks',price:149,old:0,emoji:'🍚',weight:'1kg'},
+  {id:14,name:'Banana Bunch',cat:'Fruits',price:39,old:0,emoji:'🍌',weight:'6 pcs'},
+  {id:15,name:'Coconut Water',cat:'Beverages',price:45,old:0,emoji:'🥥',weight:'500ml'},
+  {id:16,name:'Salmon Fillet',cat:'Meat',price:399,old:499,emoji:'🐟',weight:'300g',disc:20},
+  {id:17,name:'Red Tomatoes',cat:'Vegetables',price:35,old:0,emoji:'🍅',weight:'1kg'},
+  {id:18,name:'Green Apples',cat:'Fruits',price:129,old:159,emoji:'🍏',weight:'1kg',disc:19},
+  {id:19,name:'Paneer',cat:'Dairy',price:199,old:0,emoji:'🧀',weight:'500g'},
+  {id:20,name:'White Bread',cat:'Bakery',price:40,old:0,emoji:'🍞',weight:'400g'},
+  {id:21,name:'Mutton Curry Cut',cat:'Meat',price:349,old:399,emoji:'🍖',weight:'500g',disc:12},
+  {id:22,name:'Apple Juice',cat:'Beverages',price:89,old:109,emoji:'🧃',weight:'1 litre',disc:18},
+  {id:23,name:'Curd',cat:'Dairy',price:55,old:0,emoji:'🥛',weight:'500g'},
+  {id:24,name:'Pineapple',cat:'Fruits',price:79,old:99,emoji:'🍍',weight:'1 pc',disc:20},
+  {id:25,name:'Potato Chips',cat:'Snacks',price:59,old:0,emoji:'🥔',weight:'150g'},
+  {id:26,name:'Cauliflower',cat:'Vegetables',price:45,old:0,emoji:'🥬',weight:'1 pc'},
+  {id:27,name:'Butter',cat:'Dairy',price:89,old:0,emoji:'🧈',weight:'100g'},
+  {id:28,name:'Croissant',cat:'Bakery',price:65,old:0,emoji:'🥐',weight:'2 pcs'},
+  {id:29,name:'Fish Fillet',cat:'Meat',price:299,old:349,emoji:'🐟',weight:'400g',disc:14},
+  {id:30,name:'Green Tea',cat:'Beverages',price:149,old:0,emoji:'🍵',weight:'25 bags'},
+  {id:31,name:'Onions',cat:'Vegetables',price:25,old:0,emoji:'🧅',weight:'1kg'},
+  {id:32,name:'Oranges',cat:'Fruits',price:89,old:0,emoji:'🍊',weight:'1kg'},
+  {id:33,name:'Cream Cheese',cat:'Dairy',price:129,old:0,emoji:'🧀',weight:'200g'},
+  {id:34,name:'Bagels',cat:'Bakery',price:75,old:0,emoji:'🥯',weight:'4 pcs'},
+  {id:35,name:'Turkey Bacon',cat:'Meat',price:279,old:0,emoji:'🥓',weight:'200g'},
+  {id:36,name:'Sparkling Water',cat:'Beverages',price:39,old:0,emoji:'🥤',weight:'1 litre'},
+  {id:37,name:'Carrots',cat:'Vegetables',price:29,old:0,emoji:'🥕',weight:'500g'},
+  {id:38,name:'Grapes',cat:'Fruits',price:119,old:139,emoji:'🍇',weight:'500g',disc:14},
+  {id:39,name:'Sour Cream',cat:'Dairy',price:79,old:0,emoji:'🥛',weight:'200g'},
+  {id:40,name:'Muffins',cat:'Bakery',price:95,old:0,emoji:'🧁',weight:'4 pcs'},
+  {id:41,name:'Shampoo',cat:'Personal',price:199,old:249,emoji:'🧴',weight:'300ml',disc:20},
+  {id:42,name:'Toothpaste',cat:'Personal',price:89,old:0,emoji:'🧼',weight:'150g'},
+  {id:43,name:'Soap Bar',cat:'Personal',price:49,old:0,emoji:'🧼',weight:'100g'},
+  {id:44,name:'Face Wash',cat:'Personal',price:149,old:179,emoji:'🧴',weight:'150ml',disc:17},
+  {id:45,name:'Deodorant',cat:'Personal',price:129,old:0,emoji:'🧴',weight:'150ml'},
+  {id:46,name:'Hand Sanitizer',cat:'Personal',price:69,old:0,emoji:'🧴',weight:'500ml'},
+];
+
+let cart = {};
+let wishlist = new Set();
+
+// ===== PAGE NAV =====
+function show(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-center a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const navEl = document.getElementById('nav-'+id);
+  if(navEl) navEl.classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='home') renderHomeProducts();
+  if(id==='shop') renderShopProducts();
+  if(id==='cart') renderCart();
+  if(id==='checkout') renderCheckout();
+  if(id==='account') renderWishlist();
+}
+
+// ===== RENDER PRODUCT CARD =====
+function makeCard(p, container) {
+  const inCart = cart[p.id];
+  const liked = wishlist.has(p.id);
+  return `<div class="product-card">
+    <div class="prod-img">
+      ${p.disc?`<div class="discount-tag">-${p.disc}%</div>`:''}
+      <button class="wishlist-btn ${liked?'liked':''}" onclick="toggleWish(${p.id})" id="wb-${p.id}">${liked?'❤️':'🤍'}</button>
+      <span>${p.emoji}</span>
+    </div>
+    <div class="prod-info">
+      <div class="prod-category">${p.cat}</div>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-weight">${p.weight}</div>
+      <div class="prod-bottom">
+        <div>
+          <span class="prod-price">₹${p.price}</span>
+          ${p.old?`<span class="prod-old">₹${p.old}</span>`:''}
+        </div>
+        <div id="ac-${p.id}-${container}">
+          ${inCart
+            ? `<div class="qty-ctrl"><button onclick="changeQty(${p.id},-1,'${container}')">−</button><span class="qty-num">${cart[p.id]}</span><button onclick="changeQty(${p.id},1,'${container}')">+</button></div>`
+            : `<button class="add-btn" onclick="addCart(${p.id},'${container}')">+</button>`
+          }
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderHomeProducts() {
+  const el = document.getElementById('home-products');
+  if(!el) return;
+  const deals = products.filter(p=>p.disc).slice(0,8);
+  el.innerHTML = deals.map(p=>makeCard(p,'home')).join('');
+}
+
+function renderShopProducts(list) {
+  const el = document.getElementById('shop-products');
+  if(!el) return;
+  const arr = list || products;
+  el.innerHTML = arr.map(p=>makeCard(p,'shop')).join('');
+}
+
+// ===== CART LOGIC =====
+function addCart(id, container) {
+  cart[id] = 1;
+  updateBadge();
+  toast(`${products.find(p=>p.id===id).name} added to cart! 🛒`);
+  refreshCard(id, container);
+}
+
+function changeQty(id, delta, container) {
+  cart[id] = (cart[id]||0) + delta;
+  if(cart[id] <= 0) delete cart[id];
+  updateBadge();
+  refreshCard(id, container);
+}
+
+function refreshCard(id, container) {
+  const p = products.find(p=>p.id===id);
+  const el = document.getElementById(`ac-${id}-${container}`);
+  if(!el) return;
+  if(cart[id]) {
+    el.innerHTML = `<div class="qty-ctrl"><button onclick="changeQty(${id},-1,'${container}')">−</button><span class="qty-num">${cart[id]}</span><button onclick="changeQty(${id},1,'${container}')">+</button></div>`;
+  } else {
+    el.innerHTML = `<button class="add-btn" onclick="addCart(${id},'${container}')">+</button>`;
+  }
+}
+
+function updateBadge() {
+  const total = Object.values(cart).reduce((a,b)=>a+b,0);
+  document.getElementById('cart-badge').textContent = total;
+}
+
+function renderCart() {
+  const container = document.getElementById('cart-items-container');
+  const keys = Object.keys(cart);
+  if(!keys.length) {
+    container.innerHTML = `<div class="empty-cart"><div class="icon">🛒</div><h3>Your cart is empty</h3><p>Add some fresh items to get started!</p><button class="btn-green" style="margin-top:20px;width:auto;padding:12px 28px;" onclick="show('shop')">Start Shopping</button></div>`;
+    document.getElementById('cs-subtotal').textContent = '₹0.00';
+    document.getElementById('cs-total').textContent = '₹40.00';
+    document.getElementById('cart-count-txt').textContent = '0 items';
+    return;
+  }
+  let subtotal = 0;
+  let html = '';
+  keys.forEach(id=>{
+    const p = products.find(p=>p.id==id);
+    const qty = cart[id];
+    subtotal += p.price * qty;
+    html += `<div class="cart-item">
+      <div class="ci-img">${p.emoji}</div>
+      <div class="ci-info"><div class="ci-name">${p.name}</div><div class="ci-sub">${p.weight} · ₹${p.price} each</div></div>
+      <div class="qty-ctrl"><button onclick="changeQty(${p.id},-1,'cart');renderCart()">−</button><span class="qty-num">${qty}</span><button onclick="changeQty(${p.id},1,'cart');renderCart()">+</button></div>
+      <div class="ci-price">₹${p.price*qty}</div>
+      <button class="ci-del" onclick="delete cart[${p.id}];updateBadge();renderCart()">🗑️</button>
+    </div>`;
+  });
+  container.innerHTML = html;
+  const total = subtotal + 40;
+  document.getElementById('cs-subtotal').textContent = '₹'+subtotal.toFixed(2);
+  document.getElementById('cs-total').textContent = '₹'+total.toFixed(2);
+  document.getElementById('cart-count-txt').textContent = keys.length+' item'+(keys.length>1?'s':'');
+}
+
+function applyPromo() {
+  const code = document.getElementById('promo-input').value.toUpperCase();
+  if(code === 'FRESH50') { document.getElementById('cs-disc').textContent = '-₹50.00'; toast('Promo applied! ₹50 off 🎉'); }
+  else toast('Invalid promo code.');
+}
+
+// ===== CHECKOUT =====
+function renderCheckout() {
+  const keys = Object.keys(cart);
+  let subtotal = 0;
+  let html = '';
+  keys.forEach(id=>{
+    const p = products.find(p=>p.id==id);
+    subtotal += p.price * cart[id];
+    html += `<div class="oss-item"><div class="oss-img">${p.emoji}</div><div class="oss-name">${p.name} ×${cart[id]}</div><div class="oss-price">₹${p.price*cart[id]}</div></div>`;
+  });
+  document.getElementById('oss-items').innerHTML = html || '<p style="color:var(--muted);margin-bottom:16px;">No items in cart</p>';
+  document.getElementById('oss-sub').textContent = '₹'+subtotal;
+  document.getElementById('oss-total').textContent = '₹'+(subtotal+60);
+}
+
+function placeOrder() {
+  cart = {};
+  updateBadge();
+  toast('🎉 Order placed successfully! Delivering in 30 min.');
+  setTimeout(()=>show('account'),1200);
+}
+
+function selPay(el){document.querySelectorAll('.pay-method').forEach(e=>e.classList.remove('active'));el.classList.add('active');}
+function selDel(el){document.querySelectorAll('.del-opt').forEach(e=>e.classList.remove('active'));el.classList.add('active');}
+function fmtCard(i){let v=i.value.replace(/\D/g,'').substring(0,16);i.value=v.replace(/(.{4})/g,'$1 ').trim();}
+
+// ===== WISHLIST =====
+function toggleWish(id) {
+  const btn = document.getElementById('wb-'+id);
+  if(wishlist.has(id)){wishlist.delete(id);if(btn){btn.textContent='🤍';btn.classList.remove('liked');}}
+  else{wishlist.add(id);if(btn){btn.textContent='❤️';btn.classList.add('liked');}toast('Added to wishlist ❤️');}
+}
+
+function renderWishlist() {
+  const grid = document.getElementById('wishlist-grid');
+  if(!grid) return;
+  if(!wishlist.size){grid.innerHTML='<p style="color:var(--muted);">No wishlist items yet.</p>';return;}
+  grid.innerHTML = [...wishlist].map(id=>{
+    const p = products.find(p=>p.id===id);
+    return `<div class="product-card">${makeCard(p,'wish')}</div>`.replace('class="product-card"','');
+  }).join('');
+}
+
+// ===== ACCOUNT TABS =====
+function showAccTab(tab, el) {
+  ['orders','wishlist','profile','address'].forEach(t=>{
+    document.getElementById('acc-'+t).style.display = t===tab?'block':'none';
+  });
+  document.querySelectorAll('.acc-menu a').forEach(a=>a.classList.remove('active'));
+  el.classList.add('active');
+  if(tab==='wishlist') renderWishlist();
+}
+
+// ===== SHOP FILTERS =====
+function filterCat(cat) {
+  show('shop');
+  setTimeout(()=>{
+    const filtered = products.filter(p=>p.cat===cat);
+    renderShopProducts(filtered);
+  },100);
+}
+
+function applyFilters() { renderShopProducts(); }
+function updatePrice(v) { document.getElementById('price-val').textContent = '₹'+v; }
+function sortProducts(v) {
+  let arr = [...products];
+  if(v==='price-low') arr.sort((a,b)=>a.price-b.price);
+  if(v==='price-high') arr.sort((a,b)=>b.price-a.price);
+  renderShopProducts(arr);
+}
+
+function liveSearch(q) {
+  if(!q) return;
+  const res = products.filter(p=>p.name.toLowerCase().includes(q.toLowerCase())||p.cat.toLowerCase().includes(q.toLowerCase()));
+  show('shop');
+  setTimeout(()=>renderShopProducts(res),100);
+}
+
+// ===== AUTH TABS =====
+function switchAuth(showId, activeBtn, inactiveBtn) {
+  document.querySelectorAll('.tab-content-auth').forEach(t=>t.classList.remove('active'));
+  document.getElementById(showId).classList.add('active');
+  activeBtn.classList.add('active');
+  inactiveBtn.classList.remove('active');
+}
+
+// ===== TOAST =====
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.style.display='flex';
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.style.display='none',400);},3000);
+}
+
+// INIT
+renderHomeProducts();
+</script>
+</body>
+</html>
